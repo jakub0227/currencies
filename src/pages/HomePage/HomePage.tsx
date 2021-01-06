@@ -1,6 +1,16 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react'
 import {Route} from '../../types/Route'
-import {Button, CircularProgress, Fade, InputAdornment, MenuItem, Paper, TextField, Typography} from '@material-ui/core'
+import {
+	Backdrop,
+	Button,
+	CircularProgress,
+	Fade,
+	InputAdornment,
+	MenuItem,
+	Paper,
+	TextField,
+	Typography,
+} from '@material-ui/core'
 import {css} from '@emotion/react'
 import {useFetchRates} from '../../API/useFetchRates'
 import useTheme from '@material-ui/core/styles/useTheme'
@@ -102,7 +112,10 @@ export const HomePage: Route = () => {
 				{/*<input id='mojinput' ref={myInputRef}/>*/}
 				{/*aaa*/}
 				{loading ? (
-						<CircularProgress color='primary'/>
+						<Backdrop open={loading}>
+							<CircularProgress color='primary'/>
+						</Backdrop>
+					
 					) :
 					([
 						{

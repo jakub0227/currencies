@@ -23,6 +23,10 @@ export const CurrentRatesPage: Route = () => {
 	
 	const theme = useTheme()
 	const styles = {
+		mainTitle: css`
+          margin-top: ${theme.spacing(4)}px;
+		`,
+		
 		table: css`
           border-radius: 25px;
           box-shadow: 0 8px 40px -12px rgba(0, 0, 0, 0.3);
@@ -34,6 +38,7 @@ export const CurrentRatesPage: Route = () => {
 		
 		`,
 		head: css`
+          padding: ${theme.spacing(3)}px;
           background: #093028; /* fallback for old browsers */
           background: -webkit-linear-gradient(to right, #237A57, #093028); /* Chrome 10-25, Safari 5.1-6 */
           background: linear-gradient(to right, #237A57, #093028); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -62,8 +67,8 @@ export const CurrentRatesPage: Route = () => {
 	return (
 		<Fade in timeout={1500}>
 			<Container>
-				<Typography variant='h2'>
-					Welcome to Currencies Advisor
+				<Typography css={styles.mainTitle} variant='h5'>
+					Current Rates
 				</Typography>
 				{loading ? (
 					<div>
@@ -74,25 +79,26 @@ export const CurrentRatesPage: Route = () => {
 						<Table size='small'>
 							<TableHead css={styles.head}>
 								<TableRow>
-									<TableCell css={styles.headText} size='medium'>Currency</TableCell>
+									<TableCell css={styles.headText} size='medium' align='left'>Currency</TableCell>
 									<TableCell css={styles.headText} size='medium' align='right'>Rates</TableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{rates.map(([name, rate]) => (
+								{rates.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(([name, rate]) => (
 									<TableRow key={name}>
-										<TableCell component='th' scope='row'>
+										<TableCell component='th' scope='row' size='small'>
 											{name}
 										</TableCell>
 										<TableCell align='right'>{rate.toFixed(3)}</TableCell>
 									</TableRow>
 								))}
 								<TablePagination
+									rowsPerPageOptions={[8, 16, 32]}
 									component='div'
-									count={42}
+									count={rates.length}
+									rowsPerPage={rowsPerPage}
 									page={page}
 									onChangePage={handleChangePage}
-									rowsPerPage={rowsPerPage}
 									onChangeRowsPerPage={handleChangeRowsPerPage}
 								/>
 							</TableBody>

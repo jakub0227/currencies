@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper'
 import useTheme from '@material-ui/core/styles/useTheme'
 import {BottomNavigation, BottomNavigationAction, Icon, Typography} from '@material-ui/core'
 import {Link} from 'react-router-dom'
+import {ReportBugDialog} from './ReportBugDialog'
 
 export const Footer: FC = () => {
 	const theme = useTheme()
@@ -34,6 +35,10 @@ export const Footer: FC = () => {
 	}
 	const [openDialog, setOpenDialog] = useState(false)
 	
+	const toggleOpenCloseDialog = () => {
+		setOpenDialog((prev) => !prev)
+	}
+	
 	return (
 		<Paper css={styles.root} square elevation={4} component='footer'>
 			<Typography css={styles.footerText} variant='subtitle2' align='center'>
@@ -46,13 +51,14 @@ export const Footer: FC = () => {
 				                        target='_blank'
 				                        icon={<Icon color='primary'>monetization_on</Icon>}/>
 				<BottomNavigationAction label='Report Bug'
-				                        onClick={() => setOpenDialog(true)}
+				                        onClick={toggleOpenCloseDialog}
 				                        icon={<Icon color='error'>warning</Icon>}/>
 				<BottomNavigationAction label='Contact'
 				                        component={Link}
 				                        to='/contact'
 				                        icon={<Icon color='secondary'>contact_mail</Icon>}
 				/>
+				{openDialog && <ReportBugDialog/>}
 			</BottomNavigation>
 		</Paper>
 	)

@@ -9,7 +9,7 @@ export const AboutPage: Route = () => {
 		
 		<Container>
 			<Typography variant='h3'>
-				Info about our team:
+				Our helpful team:
 			</Typography>
 			<AboutPageTeam/>
 		</Container>
